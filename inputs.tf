@@ -79,6 +79,12 @@ variable "horizontal_pod_autoscaling_disable" {
 
 variable "network" {
     type = "string"
-    default = ""
+    default = "default"
     description = "The name or self_link of the Google Compute Engine network to which the cluster is connected"
+}
+
+variable "subnetwork" {
+    type = "string"
+    default = "default"
+    description = "Name of the subnet to which to attach the cluster"
 }
