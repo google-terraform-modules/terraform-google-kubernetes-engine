@@ -1,13 +1,7 @@
-resource "google_container_cluster" "primary" {
-    name               = "${var.name}"
-
-    // zone de depart
-    zone               = "${var.zone}"
-
-    // 1 node par cluster
+resource "google_container_cluster" "new_container_cluster" {
+    name = "${var.name}"
+    zone = "${var.zone}"
     initial_node_count = "${var.initial_node_count}"
-
-    // zone supplementaire + zone de depart
     additional_zones = "${var.additional_zones}"
 
     master_auth {
@@ -20,11 +14,6 @@ resource "google_container_cluster" "primary" {
         disk_size_gb = "${var.disk_size_gb}"
         local_ssd_count = "${var.local_ssd_count}"
         oauth_scopes = "${var.oauth_scopes}"
-
-        # labels {
-        #     foo = "bar"
-        # }
-
         tags = "${var.tags}"
     }
 
