@@ -3,6 +3,7 @@ resource "google_container_cluster" "new_container_cluster" {
     zone = "${var.zone}"
     initial_node_count = "${var.initial_node_count}"
     additional_zones = "${var.additional_zones}"
+    network = "${var.network}"
 
     master_auth {
         username = "${var.username}"
