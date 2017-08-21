@@ -19,7 +19,6 @@ module "container-cluster" {
 }
 ```
 
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -37,3 +36,11 @@ module "container-cluster" {
 | tags | Add tags | list | `<list>` | no |
 | username | Username cluster auth | string | - | yes |
 | zone | Default zone | string | - | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| endpoint | The IP address of this cluster's Kubernetes master |
+| instance_group_urls | List of instance group URLs which have been assigned to the cluster |
+| master_auth | Master auth client (object) |
