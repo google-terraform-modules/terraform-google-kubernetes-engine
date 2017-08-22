@@ -1,7 +1,27 @@
-resource "google_container_cluster" "new_container_cluster" {
-    name = "${var.name}"
+resource "google_container_node_pool" "new_container_cluster_node_pool" {
+    name = "node"
     zone = "${var.zone}"
-    initial_node_count = "${var.initial_node_count}"
+    cluster = "${google_container_cluster.new_container_cluster.name}"
+    initial_node_count = "${var.node_count_node}"
+
+    node_config {
+        machine_type = "${var.machine_type_node}"
+        disk_size_gb = "${var.disk_size_gb_node}"
+        local_ssd_count = "${var.local_ssd_count_node}"
+        oauth_scopes = "${var.oauth_scopes}"
+    }
+
+    # show autoscale
+    # autoscaling {
+    #     minNodeCount = "${var.minNodeCount_node}"
+    #     maxNodeCount = "${var.maxNodeCount_node}"
+    # }
+}
+
+resource "google_container_cluster" "new_container_cluster" {
+    name = "${var.name}-master"
+    zone = "${var.zone}"
+    initial_node_count = "${var.node_count}"
     additional_zones = "${var.additional_zones}"
     network = "${var.network}"
     subnetwork = "${var.subnetwork}"

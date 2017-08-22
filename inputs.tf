@@ -8,9 +8,15 @@ variable "zone" {
     description = "The zone that the master and the number of nodes specified in initial_node_count should be created in"
 }
 
-variable "initial_node_count" {
+variable "cluster_count" {
     type = "string"
-    default = "2"
+    default = 2
+    description = "The number of nodes to create in this cluster (not including the Kubernetes master)"
+}
+
+variable "node_count" {
+    type = "string"
+    default = 2
     description = "The number of nodes to create in this cluster (not including the Kubernetes master)"
 }
 
@@ -38,7 +44,7 @@ variable "machine_type" {
 
 variable "disk_size_gb" {
     type = "string"
-    default = 100
+    default = 10
     description = "Size of the disk attached to each node, specified in GB"
 }
 
@@ -87,4 +93,43 @@ variable "subnetwork" {
     type = "string"
     default = "default"
     description = "Name of the subnet to which to attach the cluster"
+}
+
+
+// nodes
+
+variable "node_count_node" {
+    type = "string"
+    default = 0
+    description = "The initial node count for the pool"
+}
+
+variable "machine_type_node" {
+    type = "string"
+    default = "n1-standard-1"
+    description = "The name of a Google Compute Engine machine type"
+}
+
+variable "disk_size_gb_node" {
+    type = "string"
+    default = 10
+    description = "Size of the disk attached to each node, specified in GB"
+}
+
+variable "local_ssd_count_node" {
+    type = "string"
+    default = 0
+    description = "The amount of local SSD disks that will be attached to each node pool"
+}
+
+variable "minNodeCount_node" {
+    type = "string"
+    default = 0
+    description = "Minimum number of nodes in the NodePool"
+}
+
+variable "maxNodeCount_node" {
+    type = "string"
+    default = 0
+    description = "Maximum number of nodes in the NodePool"
 }
