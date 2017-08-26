@@ -10,13 +10,7 @@ variable "zone" {
 
 variable "cluster_count" {
     type = "string"
-    default = 2
-    description = "The number of nodes to create in this cluster (not including the Kubernetes master)"
-}
-
-variable "node_count" {
-    type = "string"
-    default = 2
+    default = 1
     description = "The number of nodes to create in this cluster (not including the Kubernetes master)"
 }
 
@@ -24,16 +18,6 @@ variable "additional_zones" {
     type = "list"
     default = []
     description = "If additional zones are configured, the number of nodes specified in initial_node_count is created in all specified zones"
-}
-
-variable "username" {
-    type = "string"
-    description = "The username to use for HTTP basic authentication when accessing the Kubernetes master endpoint"
-}
-
-variable "password" {
-    type = "string"
-    description = "The password to use for HTTP basic authentication when accessing the Kubernetes master endpoint"
 }
 
 variable "machine_type" {
@@ -71,6 +55,22 @@ variable "tags" {
     description = "The list of instance tags applied to all nodes. Tags are used to identify valid sources or targets for network firewalls."
 }
 
+
+// Auth API K8S
+
+variable "username" {
+    type = "string"
+    description = "The username to use for HTTP basic authentication when accessing the Kubernetes master endpoint"
+}
+
+variable "password" {
+    type = "string"
+    description = "The password to use for HTTP basic authentication when accessing the Kubernetes master endpoint"
+}
+
+
+// Auto-scaling
+
 variable "http_load_balancing_disable" {
     type = "string"
     default = false
@@ -82,6 +82,9 @@ variable "horizontal_pod_autoscaling_disable" {
     default = true
     description = "The status of the Horizontal Pod Autoscaling addon"
 }
+
+
+// Network
 
 variable "network" {
     type = "string"
@@ -96,11 +99,11 @@ variable "subnetwork" {
 }
 
 
-// nodes
+// Nodes
 
-variable "node_count_node" {
+variable "node_count" {
     type = "string"
-    default = 0
+    default = 2
     description = "The initial node count for the pool"
 }
 
@@ -122,14 +125,17 @@ variable "local_ssd_count_node" {
     description = "The amount of local SSD disks that will be attached to each node pool"
 }
 
+
+// Node Autoscale
+
 variable "minNodeCount_node" {
     type = "string"
-    default = 0
+    default = 1
     description = "Minimum number of nodes in the NodePool"
 }
 
 variable "maxNodeCount_node" {
     type = "string"
-    default = 0
+    default = 3
     description = "Maximum number of nodes in the NodePool"
 }
