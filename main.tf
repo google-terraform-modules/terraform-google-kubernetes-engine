@@ -7,10 +7,10 @@ data "google_container_engine_versions" "region" {
 }
 
 resource "google_container_node_pool" "new_container_cluster_node_pool" {
-  name    = "${local.name_prefix}-node"
-  zone    = "${var.zone}"
+  name       = "${local.name_prefix}-node"
+  zone       = "${var.zone}"
   node_count = "${var.node_count}"
-  cluster = "${google_container_cluster.new_container_cluster.name}"
+  cluster    = "${google_container_cluster.new_container_cluster.name}"
 
   node_config {
     machine_type    = "${var.machine_type_node}"
@@ -26,13 +26,14 @@ resource "google_container_node_pool" "new_container_cluster_node_pool" {
   }
 
   management {
-    auto_repair = "${var.auto_repair}"
+    auto_repair  = "${var.auto_repair}"
     auto_upgrade = "${var.auto_upgrade}"
   }
 }
 
 resource "google_container_cluster" "new_container_cluster" {
   name               = "${local.name_prefix}-master"
+  image_type         = "${var.image_type}"
   min_master_version = "${var.min_master_version != "false" ? var.min_master_version : data.google_container_engine_versions.region.latest_node_version}"
   zone               = "${var.zone}"
   initial_node_count = "${var.cluster_count}"
@@ -55,7 +56,7 @@ resource "google_container_cluster" "new_container_cluster" {
       environment = "${var.env}"
     }
 
-    tags = ["${local.name_prefix}-master", "${var.env}"]
+    tags = ["${local.name_prefix}-master", "${var.env}", "${var.tags}"]
   }
 
   addons_config {

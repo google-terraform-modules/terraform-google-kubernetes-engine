@@ -7,6 +7,11 @@ variable "name" {
   description = "The name of the cluster, unique within the project and zone"
 }
 
+variable "env" {
+  type        = "string"
+  description = "Type of environnement (prod, staging, dev, int ...)"
+}
+
 # https://www.terraform.io/docs/providers/google/r/container_cluster.html#min_master_version
 variable "min_master_version" {
   type        = "string"
@@ -14,9 +19,10 @@ variable "min_master_version" {
   description = "The minimum version of the master."
 }
 
-variable "env" {
+variable "image_type" {
   type        = "string"
-  description = "Type of environnement (prod, staging, dev, int ...)"
+  default     = "cos"
+  description = "The image type to use for this node (cos or Ubuntu)"
 }
 
 variable "zone" {
@@ -74,6 +80,12 @@ variable "maintenance_window" {
   description = "Time window specified for daily maintenance operations. Specify start_time in RFC3339 format HH:MM”, where HH : [00-23] and MM : [00-59] GMT"
 }
 
+variable "tags" {
+  type        = "list"
+  default     = []
+  description = "The list of instance tags applied to all nodes. Tags are used to identify valid sources or targets for network firewalls."
+}
+
 ##########################
 ###    AUTH API K8S    ###
 ##########################
@@ -124,18 +136,17 @@ variable "local_ssd_count_node" {
 
 # WARNING BETA
 variable "auto_repair" {
-  type = "string"
-  default = "false"
+  type        = "string"
+  default     = "false"
   description = "Whether the nodes will be automatically repaired"
 }
 
 # WARNING BETA
 variable "auto_upgrade" {
-  type = "string"
-  default = "false"
+  type        = "string"
+  default     = "false"
   description = " Whether the nodes will be automatically upgraded"
 }
-
 
 ##########################
 ###  AUTOSCALING NODE  ###
