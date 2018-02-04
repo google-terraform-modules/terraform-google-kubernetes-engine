@@ -19,10 +19,11 @@ variable "min_master_version" {
   description = "The minimum version of the master."
 }
 
+# https://cloud.google.com/kubernetes-engine/docs/concepts/node-images
 variable "image_type" {
   type        = "string"
-  default     = "cos"
-  description = "The image type to use for this node (cos or Ubuntu)"
+  default     = "COS"
+  description = "The image type to use for this node (COS or Ubuntu)"
 }
 
 variable "zone" {

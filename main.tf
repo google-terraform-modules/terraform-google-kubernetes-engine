@@ -33,7 +33,6 @@ resource "google_container_node_pool" "new_container_cluster_node_pool" {
 
 resource "google_container_cluster" "new_container_cluster" {
   name               = "${local.name_prefix}-master"
-  image_type         = "${var.image_type}"
   min_master_version = "${var.min_master_version != "false" ? var.min_master_version : data.google_container_engine_versions.region.latest_node_version}"
   zone               = "${var.zone}"
   initial_node_count = "${var.cluster_count}"
@@ -48,6 +47,7 @@ resource "google_container_cluster" "new_container_cluster" {
 
   node_config {
     machine_type    = "${var.machine_type}"
+    image_type      = "${var.image_type}"
     disk_size_gb    = "${var.disk_size_gb}"
     local_ssd_count = "${var.local_ssd_count}"
     oauth_scopes    = "${var.oauth_scopes}"
