@@ -23,7 +23,7 @@ module "container-cluster" {
 }
 ```
 
-For the password, you can use the random provider :
+For the password, you can use the [random provider](https://www.terraform.io/docs/providers/random/index.html) :
 ```hcl
 resource "random_string" "password" {
   length  = 16
@@ -41,6 +41,7 @@ resource "random_string" "password" {
 | name | The name of the cluster, unique within the project and zone | string | - | yes |
 | env | Type of environnement (prod, staging, dev, int ...) | string | - | yes |
 | min_master_version | The minimum version of the master. | string | `false` | no |
+| image_type | The image type to use for this node (cos or Ubuntu) | string | `cos` | no |
 | network | The name or self_link of the Google Compute Engine network to which the cluster is connected | string | `default` | no|
 | zone | The zone that the master and the number of nodes specified in node_count should be created in | string | - | yes |
 | subnetwork | Name of the subnet to which to attach the cluster | string | `default` | no |
@@ -64,6 +65,7 @@ resource "random_string" "password" {
 | password | The password to use for HTTP basic authentication when accessing the Kubernetes master endpoint | string | - | yes |
 | auto_repair | **(WARNING BETA)** Whether the nodes will be automatically repaired | string | `false` | no |
 | auto_upgrade | **(WARNING BETA)** Whether the nodes will be automatically upgraded | string | `false` | no |
+| tags | The list of instance tags applied to all nodes. Tags are used to identify valid sources or targets for network firewalls.| list | `<list>` | no |
 
 ## Outputs
 
