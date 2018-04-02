@@ -14,7 +14,7 @@ output "instance_group_urls" {
 }
 
 output "client_certificate" {
-  value       = "${google_container_cluster.new_container_cluster.client_certificate}"
+  value       = "${google_container_cluster.new_container_cluster.master_auth.0.client_certificate}"
   description = "Base64 encoded public certificate that is the root of trust for the cluster"
 }
 
@@ -24,6 +24,6 @@ output "client_key" {
 }
 
 output "cluster_ca_certificate" {
-  value       = "${google_container_cluster.new_container_cluster.cluster_ca_certificate}"
+  value       = "${google_container_cluster.new_container_cluster.master_auth.0.cluster_ca_certificate}"
   description = "Base64 encoded public certificate that is the root of trust for the cluster"
 }
