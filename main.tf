@@ -32,13 +32,18 @@ resource "google_container_node_pool" "new_container_cluster_node_pool" {
 }
 
 resource "google_container_cluster" "new_container_cluster" {
-  name               = "${local.name_prefix}-master"
-  min_master_version = "${var.min_master_version != "false" ? var.min_master_version : data.google_container_engine_versions.region.latest_node_version}"
-  zone               = "${var.zone}"
-  initial_node_count = "${var.cluster_count}"
-  additional_zones   = "${var.additional_zones}"
-  network            = "${var.network}"
-  subnetwork         = "${var.subnetwork}"
+  name                              = "${local.name_prefix}-master"
+  min_master_version                = "${var.min_master_version != "false" ? var.min_master_version : data.google_container_engine_versions.region.latest_node_version}"
+  zone                              = "${var.zone}"
+  initial_node_count                = "${var.cluster_count}"
+  additional_zones                  = "${var.additional_zones}"
+  network                           = "${var.network}"
+  subnetwork                        = "${var.subnetwork}"
+  monitoring_service                = "${var.monitoring_service}"
+  logging_service                   = "${var.logging_service}"
+  enable_legacy_abac                = "${var.enable_legacy_abac}"
+  enable_kubernetes_alpha           = "${var.kubernetes_alpha}"
+  master_authorized_networks_config = "${var.master_authorized_networks_config}"
 
   master_auth {
     username = "${var.username}"
@@ -51,12 +56,21 @@ resource "google_container_cluster" "new_container_cluster" {
     disk_size_gb    = "${var.disk_size_gb}"
     local_ssd_count = "${var.local_ssd_count}"
     oauth_scopes    = "${var.oauth_scopes}"
+    preemptible     = "${var.preemptible}"
+
+    # guest_accelerator {
+    #   count = "${var.gpus_number}"
+    #   type  = "${var.gpus_type}"
+    # }
 
     labels {
       environment = "${var.env}"
     }
-
     tags = ["${local.name_prefix}-master", "${var.env}", "${var.tags}"]
+  }
+
+  pod_security_policy_config {
+    enabled = "${var.pod_security_policy_config}"
   }
 
   addons_config {
@@ -69,7 +83,11 @@ resource "google_container_cluster" "new_container_cluster" {
     }
 
     kubernetes_dashboard {
-      disabled = "${var.kubernetes_dashboard}"
+      disabled = "${var.kubernetes_dashboard_disable}"
+    }
+
+    network_policy_config {
+      disabled = "${var.network_policy_config_disable}"
     }
   }
 

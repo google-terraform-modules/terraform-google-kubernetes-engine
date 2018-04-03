@@ -9,7 +9,21 @@ variable "name" {
 
 variable "env" {
   type        = "string"
+  default     = "dev"
   description = "Type of environnement (prod, staging, dev, int ...)"
+}
+
+variable "preemptible" {
+  type        = "string"
+  default     = false
+  description = "A boolean that represents whether or not the underlying node VMs are preemptible"
+}
+
+# WARNING ALPHA
+variable "kubernetes_alpha" {
+  type        = "string"
+  default     = false
+  description = "Whether to enable Kubernetes Alpha features for this cluster. Note that when this option is enabled, the cluster cannot be upgraded and will be automatically deleted after 30 days."
 }
 
 # https://www.terraform.io/docs/providers/google/r/container_cluster.html#min_master_version
@@ -28,6 +42,7 @@ variable "image_type" {
 
 variable "zone" {
   type        = "string"
+  default     = "us-central1-a"
   description = "The zone that the master and the number of nodes specified in initial_node_count should be created in"
 }
 
@@ -74,17 +89,45 @@ variable "oauth_scopes" {
   description = "The set of Google API scopes to be made available on all of the node VMs under the default service account"
 }
 
+variable "enable_legacy_abac" {
+  type        = "string"
+  default     = true
+  description = "Whether the ABAC authorizer is enabled for this cluster. When enabled, identities in the system, including service accounts, nodes, and controllers, will have statically granted permissions beyond those provided by the RBAC configuration or IAM"
+}
+
+variable "monitoring_service" {
+  type        = "string"
+  default     = "monitoring.googleapis.com"
+  description = "The list of instance tags applied to all nodes. Tags are used to identify valid sources or targets for network firewalls"
+}
+
+variable "logging_service" {
+  type        = "string"
+  default     = "logging.googleapis.com"
+  description = "The logging service that the cluster should write logs to. Available options include logging.googleapis.com and none"
+}
+
 # https://www.terraform.io/docs/providers/google/r/container_cluster.html#daily_maintenance_window
 variable "maintenance_window" {
   type        = "string"
   default     = "04:30"
-  description = "Time window specified for daily maintenance operations. Specify start_time in RFC3339 format HH:MM”, where HH : [00-23] and MM : [00-59] GMT"
+  description = "The monitoring service that the cluster should write metrics to. Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API"
 }
 
 variable "tags" {
   type        = "list"
   default     = []
   description = "The list of instance tags applied to all nodes. Tags are used to identify valid sources or targets for network firewalls."
+}
+
+##########################
+###        PODS        ###
+##########################
+
+variable "pod_security_policy_config" {
+  type        = "string"
+  default     = false
+  description = "Enable the PodSecurityPolicy controller for this cluster. If enabled, pods must be valid under a PodSecurityPolicy to be created"
 }
 
 ##########################
@@ -101,7 +144,8 @@ variable "password" {
   description = "The password to use for HTTP basic authentication when accessing the Kubernetes master endpoint"
 }
 
-variable "kubernetes_dashboard" {
+# WARNING : the occurrence name is "disabled"
+variable "kubernetes_dashboard_disable" {
   type        = "string"
   default     = false
   description = "The status of the Kubernetes Dashboard add-on"
@@ -169,16 +213,40 @@ variable "maxNodeCount_node" {
 ###   AUTOSCALING K8S  ###
 ##########################
 
+# WARNING : the occurrence name is "disabled"
 variable "http_load_balancing_disable" {
   type        = "string"
   default     = false
   description = "The status of the HTTP Load Balancing add-on"
 }
 
+# WARNING : the occurrence name is "disabled"
 variable "horizontal_pod_autoscaling_disable" {
   type        = "string"
   default     = true
   description = "The status of the Horizontal Pod Autoscaling addon"
+}
+
+variable "master_authorized_networks_config" {
+  type        = "list"
+  default     = []
+  description = "The desired configuration options for master authorized networks. Omit the nested cidr_blocks attribute to disallow external access (except the cluster node IPs, which GKE automatically whitelists)"
+}
+
+##########################
+###   GPUS (ONLY 1.9)  ###
+##########################
+
+variable "gpus_number" {
+  type        = "string"
+  default     = 0
+  description = "The number of the guest accelerator cards exposed to this instance"
+}
+
+variable "gpus_type" {
+  type        = "string"
+  default     = "nvidia-tesla-k80"
+  description = "The accelerator type resource to expose to this instance"
 }
 
 ##########################
@@ -195,4 +263,10 @@ variable "subnetwork" {
   type        = "string"
   default     = "default"
   description = "Name of the subnet to which to attach the cluster"
+}
+
+variable "network_policy_config_disable" {
+  type        = "string"
+  default     = true
+  description = "Whether we should enable the network policy addon for the master"
 }
