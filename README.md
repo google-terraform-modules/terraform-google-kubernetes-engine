@@ -1,25 +1,20 @@
 # Google Kubernetes Engine (GKE) cluster
 
-Compatible provider `1.3-1.5`
+Compatible provider `1.8`
 
 ## Example
 
+* 1 cluster, 3 nodes, n1-standard-1
+
 ```hcl
-module "container-cluster" {
+module "gke-cluster" {
   source           = "github.com/google-terraform-modules/gke"
-  name             = "${var.name}"
-  env              = "${var.env}"
-  network          = "${module.network.name}"
-  subnetwork       = "${var.subnet_name}"
-  zone             = "${var.zone}"
-  machine_type     = "${var.machine_type}"
-  node_count       = "${var.node_count}"
-  additional_zones = "${var.additional_zones}"
-  username         = "${var.username}"
-  password         = "${var.password}"
-  disk_size_gb     = "${var.disk_size_gb}"
-  local_ssd_count  = "${var.local_ssd_count}"
-  oauth_scopes     = "${var.oauth_scopes}"
+
+  name     = "mycluster"
+  env      = "prod"
+  zone     = "europe-west1-b"
+  username = "admin"
+  password = "ZBfEg1lOs|k9T26e"
 }
 ```
 
@@ -45,6 +40,9 @@ resource "random_string" "password" {
 | network | The name or self_link of the Google Compute Engine network to which the cluster is connected | string | `default` | no|
 | zone | The zone that the master and the number of nodes specified in node_count should be created in | string | - | yes |
 | subnetwork | Name of the subnet to which to attach the cluster | string | `default` | no |
+| enable_legacy_abac | Whether the ABAC authorizer is enabled for this cluster. When enabled, identities in the system, including service accounts, nodes, and controllers, will have statically granted permissions beyond those provided by the RBAC configuration or IAM | string | `true` | no |
+| **(DISABLE - BUG PROVIDER)** gpus_number | The number of the guest accelerator cards exposed to this instance | string | `0` | no |
+| **(DISABLE - BUG PROVIDER)** gpus_type | The accelerator type resource to expose to this instance | string | `nvidia-tesla-k80` | no |
 | additional_zones | If additional zones are configured, the number of nodes specified in node_count is created in all specified zones | list | `<list>` | no |
 | cluster_count | The number of nodes to create in this cluster (not including the Kubernetes master) | string | `1` | no |
 | node_count | The initial node count for the pool | string | `2` | no |
@@ -63,6 +61,11 @@ resource "random_string" "password" {
 | kubernetes_dashboard | The status of the Kubernetes Dashboard add-on | string | `false` | no |
 | username | The username to use for HTTP basic authentication when accessing the Kubernetes master endpoint | string | - | yes |
 | password | The password to use for HTTP basic authentication when accessing the Kubernetes master endpoint | string | - | yes |
+| kubernetes_alpha | **(WARNING ALPHA)** Whether to enable Kubernetes Alpha features for this cluster. Note that when this option is enabled, the cluster cannot be upgraded and will be automatically deleted after 30 days. | string | `false` | no |
+| monitoring_service | The list of instance tags applied to all nodes. Tags are used to identify valid sources or targets for network firewalls | string | `monitoring.googleapis.com` | no |
+| logging_service | The logging service that the cluster should write logs to. Available options include logging.googleapis.com and none | string | `logging.googleapis.com` | no |
+| preemptible | A boolean that represents whether or not the underlying node VMs are preemptible | string | `false` | no |
+| pod_security_policy_config | Enable the PodSecurityPolicy controller for this cluster. If enabled, pods must be valid under a PodSecurityPolicy to be created | string | `false` | no |
 | auto_repair | **(WARNING BETA)** Whether the nodes will be automatically repaired | string | `false` | no |
 | auto_upgrade | **(WARNING BETA)** Whether the nodes will be automatically upgraded | string | `false` | no |
 | tags | The list of instance tags applied to all nodes. Tags are used to identify valid sources or targets for network firewalls.| list | `<list>` | no |
