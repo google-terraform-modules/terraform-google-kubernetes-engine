@@ -8,7 +8,7 @@ Compatible provider `1.8`
 
 ```hcl
 module "gke-cluster" {
-  source           = "github.com/google-terraform-modules/gke"
+  source   = "github.com/google-terraform-modules/terraform-google-kubernetes-engine"
 
   name     = "mycluster"
   env      = "prod"
