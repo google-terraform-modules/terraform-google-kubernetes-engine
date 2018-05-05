@@ -120,7 +120,7 @@ resource "google_container_cluster" "new_container_cluster" {
     taint = "${var.taint}"
   }
 
-  node_version = "${lookup(var.general, "version", data.google_container_engine_versions.region.latest_node_version)}"
+  node_version = "${lookup(var.master, "version", data.google_container_engine_versions.region.latest_node_version)}"
 
   pod_security_policy_config {
     # WARNING BETA
