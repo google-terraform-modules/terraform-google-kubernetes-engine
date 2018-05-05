@@ -85,7 +85,7 @@ resource "random_string" "password" {
 
 ## Inputs
 
-**WARNING :** A big change in the management of the variables has been implemented in this version. I urge you to look at the variable declaration file : [variables.tf](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/blob/feature/provider-1.10/variables.tf)
+**WARNING :** A big change in the management of the variables has been implemented in this version. I urge you to look at the variable declaration file : [variables.tf](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/blob/master/variables.tf)
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
