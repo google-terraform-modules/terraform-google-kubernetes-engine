@@ -17,7 +17,7 @@ data "google_container_engine_versions" "region" {
 resource "google_container_node_pool" "new_container_cluster_node_pool" {
   count      = "${length(var.node_pool)}"
   name       = "${local.name_prefix}-${lookup(var.node_pool[count.index], "zone", "none")}-pool-${count.index}"
-  zone       = "${lookup(var.node_pool[count.index], "zone")}"
+  zone       = "${var.general["zone"]}"
   node_count = "${lookup(var.node_pool[count.index], "node_count", 1)}"
   cluster    = "${google_container_cluster.new_container_cluster.name}"
 
@@ -85,7 +85,7 @@ resource "google_container_cluster" "new_container_cluster" {
   }
 
   # master_authorized_networks_config - disable (security)
-  master_ipv4_cidr_block = "${lookup(var.master, "ipv4_cidr_block", "10.0.0.0/28")}"
+  master_ipv4_cidr_block = "${var.ipv4_cidr_block}"
   min_master_version     = "${lookup(var.general, "version", data.google_container_engine_versions.region.latest_node_version)}"
   monitoring_service     = "${lookup(var.master, "monitoring_service", "none")}"
   network                = "${var.network}"

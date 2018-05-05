@@ -1,5 +1,5 @@
 ##########################
-###     MASTER GKE     ###
+###         GKE        ###
 ##########################
 
 variable "general" {
@@ -46,10 +46,11 @@ variable "master_auth" {
 ###      NODE GKE      ###
 ##########################
 
+# https://www.terraform.io/docs/providers/google/r/container_cluster.html#additional_zones
 variable "node_additional_zones" {
   type        = "list"
   default     = []
-  description = ""
+  description = "The list of additional Google Compute Engine locations in which the cluster's nodes should be located. If additional zones are configured, the number of nodes specified in initial_node_count is created in all specified zones"
 }
 
 # https://www.terraform.io/docs/providers/google/r/container_cluster.html#taint
@@ -61,14 +62,26 @@ variable "taint" {
 }
 
 ##########################
-###       NETWORK      ###
+###  PRIVATE CLUSTER   ###
 ##########################
 
+# https://www.terraform.io/docs/providers/google/r/container_cluster.html#master_ipv4_cidr_block
+variable "ipv4_cidr_block" {
+  type        = "string"
+  default     = "10.0.0.0/28"
+  description = "Specifies a private RFC1918 block for the master's VPC. The master range must not overlap with any subnet in your cluster's VPC. The master and your cluster use VPC peering. Must be specified in CIDR notation and must be /28 subnet."
+}
+
+# https://www.terraform.io/docs/providers/google/r/container_cluster.html#ip_allocation_policy
 variable "ip_allocation_policy" {
   type        = "list"
   default     = []
-  description = ""
+  description = "Configuration for cluster IP allocation. As of now, only pre-allocated subnetworks (custom type with secondary ranges) are supported"
 }
+
+##########################
+###       NETWORK      ###
+##########################
 
 # https://www.terraform.io/docs/providers/google/r/container_cluster.html#network
 variable "network" {
