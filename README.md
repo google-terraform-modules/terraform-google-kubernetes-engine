@@ -4,7 +4,7 @@ Compatible provider `1.10.0 - 1.11.0`
 
 ## Examples
 
-* 1 cluster, 1 extra custom node pool (3 nodes (10GB peer node) n1-standard-1), latest version of Kubernetes for each node
+* 1 cluster, 1 extra custom node pool (3 nodes (10GB/node) n1-standard-1), latest version of Kubernetes for each node
 
 ```hcl
 module "gke-cluster" {
@@ -103,10 +103,11 @@ resource "random_string" "password" {
 
 | Name | Description |
 |------|-------------|
-| client_certificate | Base64 encoded public certificate that is the root of trust for the cluster |
-| client_key | Base64 encoded public certificate that is the root of trust for the cluster |
+| client_certificate | Base64 encoded public certificate used by clients to authenticate to the cluster endpoint |
+| client_key | Base64 encoded private key used by clients to authenticate to the cluster endpoint |
 | cluster_ca_certificate | Base64 encoded public certificate that is the root of trust for the cluster |
 | endpoint | The IP address of this cluster's Kubernetes master |
 | gcr_url | This data source fetches the project name, and provides the appropriate URLs to use for container registry for this project |
 | instance_group_urls | List of instance group URLs which have been assigned to the cluster |
+| maintenance_window | Duration of the time window, automatically chosen to be smallest possible in the given scenario. Duration will be in RFC3339 format PTnHnMnS |
 | master_version | The current version of the master in the cluster. |
