@@ -1,12 +1,5 @@
 locals {
   name_prefix = "${var.general["name"]}-${var.general["env"]}"
-
-  default_tags = [
-    "${var.general["name"]}",
-    "${var.general["env"]}",
-    "${var.general["zone"]}",
-    "${lookup(var.master, "version", data.google_container_engine_versions.region.latest_node_version)}",
-  ]
 }
 
 # This data source fetches the project name, and provides the appropriate URLs to use for container registry for this project.
@@ -122,7 +115,7 @@ resource "google_container_cluster" "new_container_cluster" {
     preemptible     = "${lookup(var.default_node_pool, "preemptible", false)}"
     service_account = "${lookup(var.default_node_pool, "service_account", "default")}"
     labels          = "${var.labels}"
-    tags            = "${concat(locals.default_tags, var.tags)}"
+    tags            = "${var.tags}"
 
     # WARNING BETA
     taint = "${var.taint}"
