@@ -33,12 +33,6 @@ variable "general" {
 # version (default: Data resource)
 # monitoring_service (default: none)
 # logging_service (default: logging.googleapis.com)
-# disk_size_gb (default: 10)
-# image (default: COS)
-# local_ssd_count (default: 0)
-# oauth_scopes (default: https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring)
-# machine_type (default: n1-standard-1)
-# preemptible (default: false)
 variable "master" {
   type        = "map"
   description = "Kubernetes master parameters to initialize"
@@ -47,6 +41,13 @@ variable "master" {
 # Parameters authorized:
 # node_count (default: 3)
 # remove (default: true)
+# disk_size_gb (default: 10)
+# image (default: COS)
+# local_ssd_count (default: 0)
+# oauth_scopes (default: https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring)
+# machine_type (default: n1-standard-1)
+# preemptible (default: false)
+# service_account (default: default)
 variable "default_node_pool" {
   type        = "map"
   default     = {}
@@ -74,6 +75,13 @@ variable "tags" {
   type        = "list"
   default     = []
   description = "The list of instance tags applied to all nodes. Tags are used to identify valid sources or targets for network firewalls"
+}
+
+# https://www.terraform.io/docs/providers/google/r/container_cluster.html#labels
+variable "labels" {
+  description = "The Kubernetes labels (key/value pairs) to be applied to each node"
+  type        = "map"
+  default     = {}
 }
 
 ##########################

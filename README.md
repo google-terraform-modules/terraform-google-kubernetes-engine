@@ -93,6 +93,7 @@ resource "random_string" "password" {
 | general | Global parameters | map | - | yes |
 | ip_allocation_policy | Configuration for cluster IP allocation. As of now, only pre-allocated subnetworks (custom type with secondary ranges) are supported | list | `<list>` | no |
 | ipv4_cidr_block | Specifies a private RFC1918 block for the master's VPC. The master range must not overlap with any subnet in your cluster's VPC. The master and your cluster use VPC peering. Must be specified in CIDR notation and must be /28 subnet. | string | `10.0.0.0/28` | no |
+| labels | The Kubernetes labels (key/value pairs) to be applied to each node | map | `<map>` | no |
 | master | Kubernetes master parameters to initialize | map | - | yes |
 | node_additional_zones | The list of additional Google Compute Engine locations in which the cluster's nodes should be located. If additional zones are configured, the number of nodes specified in initial_node_count is created in all specified zones | list | `<list>` | no |
 | node_pool | Node pool setting to create | list | `<list>` | no |

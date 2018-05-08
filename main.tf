@@ -1,5 +1,12 @@
 locals {
   name_prefix = "${var.general["name"]}-${var.general["env"]}"
+
+  default_tags = [
+    "${var.general["name"]}",
+    "${var.general["env"]}",
+    "${var.general["zone"]}",
+    "${lookup(var.master, "version", data.google_container_engine_versions.region.latest_node_version)}",
+  ]
 }
 
 # This data source fetches the project name, and provides the appropriate URLs to use for container registry for this project.
@@ -96,25 +103,26 @@ resource "google_container_cluster" "new_container_cluster" {
   logging_service    = "${lookup(var.master, "logging_service", "logging.googleapis.com")}"
 
   node_config {
-    disk_size_gb = "${lookup(var.master, "disk_size_gb", 10)}"
+    disk_size_gb = "${lookup(var.default_node_pool, "disk_size_gb", 10)}"
 
     # BUG Provider - recreate loop
     # guest_accelerator {
     #   count = "${lookup(var.master, "gpus_number", 0)}"
     #   type  = "${lookup(var.master, "gpus_type", "nvidia-tesla-k80")}"
     # }
-    image_type = "${lookup(var.master, "image", "COS")}"
+    image_type = "${lookup(var.default_node_pool, "image", "COS")}"
 
-    local_ssd_count = "${lookup(var.master, "local_ssd_count", 0)}"
-    machine_type    = "${lookup(var.master, "machine_type", "n1-standard-1")}"
+    local_ssd_count = "${lookup(var.default_node_pool, "local_ssd_count", 0)}"
+    machine_type    = "${lookup(var.default_node_pool, "machine_type", "n1-standard-1")}"
 
     # metadata - disable
     # min_cpu_platform - disable (useless)
-    oauth_scopes = ["${split(",", lookup(var.master, "oauth_scopes", "https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring"))}"]
+    oauth_scopes = ["${split(",", lookup(var.default_node_pool, "oauth_scopes", "https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring"))}"]
 
-    preemptible     = "${lookup(var.master, "preemptible", false)}"
-    service_account = "default"
-    tags            = "${var.tags}"
+    preemptible     = "${lookup(var.default_node_pool, "preemptible", false)}"
+    service_account = "${lookup(var.default_node_pool, "service_account", "default")}"
+    labels          = "${var.labels}"
+    tags            = "${concat(locals.default_tags, var.tags)}"
 
     # WARNING BETA
     taint = "${var.taint}"
