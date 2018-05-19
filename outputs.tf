@@ -18,6 +18,16 @@ output "maintenance_window" {
   description = "Duration of the time window, automatically chosen to be smallest possible in the given scenario. Duration will be in RFC3339 format PTnHnMnS"
 }
 
+output "username" {
+  value       = "${google_container_cluster.new_container_cluster.master_auth.0.username}"
+  description = "The username to login on the master Kubernetes"
+}
+
+output "password" {
+  value       = "${google_container_cluster.new_container_cluster.master_auth.0.password}"
+  description = "The password to login on the master Kubernetes"
+}
+
 output "client_certificate" {
   value       = "${google_container_cluster.new_container_cluster.master_auth.0.client_certificate}"
   description = "Base64 encoded public certificate used by clients to authenticate to the cluster endpoint"
