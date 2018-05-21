@@ -1,3 +1,8 @@
+## v1.13 (Unreleased)
+
+* Add new outputs username & password
+
+
 ## [v1.12](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.11...1.12) (May 8, 2018)
 
 * Fix attribution of variables - [a801232 (line)](https://github.com/perriea/terraform-google-kubernetes-engine/commit/a801232e702ac3e4b46a4ada4f815b8717e58e4c#diff-c9ac8098c5ea9d3e6a9a596ff0c512a4R44)

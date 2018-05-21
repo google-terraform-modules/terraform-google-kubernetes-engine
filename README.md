@@ -112,3 +112,5 @@ resource "random_string" "password" {
 | instance_group_urls | List of instance group URLs which have been assigned to the cluster |
 | maintenance_window | Duration of the time window, automatically chosen to be smallest possible in the given scenario. Duration will be in RFC3339 format PTnHnMnS |
 | master_version | The current version of the master in the cluster. |
+| password | The password to login on the master Kubernetes |
+| username | The username to login on the master Kubernetes |
