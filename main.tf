@@ -50,8 +50,8 @@ resource "google_container_cluster" "new_container_cluster" {
   subnetwork  = "${lookup(var.master, "subnetwork", "default")}"
 
   additional_zones         = ["${var.node_additional_zones}"]
-  initial_node_count       = "${lookup(var.default_node_pool, "node_count", 1)}"
-  remove_default_node_pool = "${lookup(var.default_node_pool, "remove", true)}"
+  initial_node_count       = "${lookup(var.default_node_pool, "node_count", 2)}"
+  remove_default_node_pool = "${lookup(var.default_node_pool, "remove", false)}"
 
   addons_config {
     horizontal_pod_autoscaling {

@@ -1,6 +1,9 @@
 ## v1.13 (Unreleased)
 
-* Add new outputs username & password
+* Add new outputs **username** & **password**,
+* Change default values for :
+    * **node_count** (map `default_node_pool`): `2` (before `1`),
+    * **remove** (map `default_node_pool`): `false` (before `true`).
 
 
 ## [v1.12](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.11...1.12) (May 8, 2018)

@@ -39,8 +39,8 @@ variable "master" {
 }
 
 # Parameters authorized:
-# node_count (default: 3)
-# remove (default: true)
+# node_count (default: 2)
+# remove (default: false)
 # disk_size_gb (default: 10)
 # image (default: COS)
 # local_ssd_count (default: 0)
