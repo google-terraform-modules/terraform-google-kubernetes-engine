@@ -84,6 +84,14 @@ variable "labels" {
   default     = {}
 }
 
+# https://www.terraform.io/docs/providers/google/r/container_cluster.html#metadata
+variable "metadata" {
+  description = "The metadata key/value pairs assigned to instances in the cluster"
+  type        = "map"
+  default     = {}
+}
+
+
 ##########################
 ###      NODE GKE      ###
 ##########################
