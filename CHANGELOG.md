@@ -1,7 +1,12 @@
-## v1.13 (Unreleased)
+## v1.14 (Unreleased)
 
-* Add new outputs **username** & **password**,
-* Change default values for :
+
+## [v1.13](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.12...1.13) (June 4, 2018)
+
+* Add new outputs **username** & **password** - [2ee232e (line)](https://github.com/perriea/terraform-google-kubernetes-engine/commit/2ee232e3c2ef3161298cb2c6bbe8f14e8c9cc68a#diff-c09d00f135e3672d079ff6e0556d957dR21)
+* Add new value **metadata** (map `default_node_pool`) - [b7128fb (line)](https://github.com/perriea/terraform-google-kubernetes-engine/commit/b7128fb16801085dabcabda8eb82c4f081099ad8#diff-7a370d8342e7203b805911c92454f0f4R122)
+* Add new block **workload_metadata_config** (map `default_node_pool`) - [b7128fb (line)](https://github.com/perriea/terraform-google-kubernetes-engine/commit/b7128fb16801085dabcabda8eb82c4f081099ad8#diff-7a370d8342e7203b805911c92454f0f4R124)
+* Change default values for [7f7b6b1](https://github.com/perriea/terraform-google-kubernetes-engine/commit/7f7b6b1917d35168f95485ba5bc900ece83dec70) :
     * **node_count** (map `default_node_pool`): `2` (before `1`),
     * **remove** (map `default_node_pool`): `false` (before `true`).
 
