@@ -64,6 +64,7 @@ variable "default_node_pool" {
 # max_node_count (default: 3)
 # auto_repair (default: true)
 # auto_upgrade (default: true)
+# metadata (default: {})
 variable "node_pool" {
   type        = "list"
   default     = []

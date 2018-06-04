@@ -1,15 +1,15 @@
 # Google Kubernetes Engine (GKE) cluster
 
-Compatible provider `1.10.0 - 1.12.0`
+Compatible provider `1.10.0 - 1.13.0`
 
 ## Examples
 
-* 1 cluster, 1 extra custom node pool (3 nodes (10GB/node) n1-standard-1), latest version of Kubernetes for each node
+* 1 cluster, 1 default node pool (2 nodes (10GB/node) n1-standard-1), latest version of Kubernetes for each node
 
 ```hcl
 module "gke-cluster" {
   source = "google-terraform-modules/kubernetes-engine/google"
-  version = "1.12.0"
+  version = "1.13.0"
 
   general = {
     name = "mycluster"
@@ -21,10 +21,6 @@ module "gke-cluster" {
     username = "admin"
     password = "${random_string.password.result}"
   }
-
-  node_pool = [
-    {},
-  ]
 }
 ```
 
@@ -33,7 +29,7 @@ module "gke-cluster" {
 ```hcl
 module "gke-cluster" {
   source = "google-terraform-modules/kubernetes-engine/google"
-  version = "1.12.0"
+  version = "1.13.0"
 
   general = {
     name = "mycluster"
