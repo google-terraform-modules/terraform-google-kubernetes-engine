@@ -1,4 +1,6 @@
-## v1.14 (Unreleased)
+## [v1.15](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.13...1.15) (June 30, 2018)
+
+* Add new parameter **enable_client_certificate** - [1c892dd](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/commit/1c892dde50c66e83d1defa58cd449966e2dcec45)
 
 
 ## [v1.13](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.12...1.13) (June 4, 2018)
