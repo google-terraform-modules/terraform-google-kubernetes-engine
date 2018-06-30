@@ -20,6 +20,7 @@ variable "general" {
 # Parameters authorized:
 # username (mandatory)
 # password (mandatory)
+# enable_client_certificate (default: false)
 # network (default: default)
 # subnetwork (default: default)
 # disable_horizontal_pod_autoscaling (default: false)
@@ -91,7 +92,6 @@ variable "metadata" {
   type        = "map"
   default     = {}
 }
-
 
 ##########################
 ###      NODE GKE      ###

@@ -93,6 +93,11 @@ resource "google_container_cluster" "new_container_cluster" {
   master_auth {
     username = "${var.master["username"]}"
     password = "${var.master["password"]}"
+
+    # See https://www.terraform.io/docs/providers/google/r/container_cluster.html#client_certificate_config
+    client_certificate_config {
+      issue_client_certificate = "${lookup(var.master, "enable_client_certificate", false)}"
+    }
   }
 
   # master_authorized_networks_config - disable (security)
