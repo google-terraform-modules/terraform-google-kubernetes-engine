@@ -103,6 +103,7 @@ resource "random_string" "password" {
 | client_certificate | Base64 encoded public certificate used by clients to authenticate to the cluster endpoint |
 | client_key | Base64 encoded private key used by clients to authenticate to the cluster endpoint |
 | cluster_ca_certificate | Base64 encoded public certificate that is the root of trust for the cluster |
+| cluster_name | The full name of this Kubernetes cluster |
 | endpoint | The IP address of this cluster's Kubernetes master |
 | gcr_url | This data source fetches the project name, and provides the appropriate URLs to use for container registry for this project |
 | instance_group_urls | List of instance group URLs which have been assigned to the cluster |
