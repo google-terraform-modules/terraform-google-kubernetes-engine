@@ -1,6 +1,6 @@
 # Google Kubernetes Engine (GKE) cluster
 
-Compatible provider `1.14.0 - 1.15.0`
+Compatible provider `1.16.2 - 1.17.1`
 
 ## Examples
 
@@ -9,7 +9,7 @@ Compatible provider `1.14.0 - 1.15.0`
 ```hcl
 module "gke-cluster" {
   source = "google-terraform-modules/kubernetes-engine/google"
-  version = "1.15.0"
+  version = "1.17.0"
 
   general = {
     name = "mycluster"
@@ -29,7 +29,7 @@ module "gke-cluster" {
 ```hcl
 module "gke-cluster" {
   source = "google-terraform-modules/kubernetes-engine/google"
-  version = "1.15.0"
+  version = "1.17.0"
 
   general = {
     name = "mycluster"
@@ -81,8 +81,6 @@ resource "random_string" "password" {
 
 ## Inputs
 
-**WARNING :** A big change in the management of the variables has been implemented in this version. I urge you to look at the variable declaration file : [variables.tf](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/blob/master/variables.tf)
-
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | default_node_pool | Default pool setting | map | `<map>` | no |
@@ -95,6 +93,7 @@ resource "random_string" "password" {
 | node_pool | Node pool setting to create | list | `<list>` | no |
 | tags | The list of instance tags applied to all nodes. Tags are used to identify valid sources or targets for network firewalls | list | `<list>` | no |
 | taint | List of kubernetes taints to apply to each node | list | `<list>` | no |
+
 
 ## Outputs
 

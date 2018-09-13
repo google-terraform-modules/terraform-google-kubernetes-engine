@@ -1,3 +1,8 @@
+## [v1.17](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.15...1.17) (September 13, 2018)
+* Add new parameter **disk_type** - [d8069fb](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/commit/d8069fb16a3911d43401f75d545f61afeec9e98a)
+* Add new parameter **preemptible** - [d8069fb](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/commit/d8069fb16a3911d43401f75d545f61afeec9e98a)
+
+
 ## [v1.15](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.13...1.15) (June 30, 2018)
 
 * Add new parameter **enable_client_certificate** - [1c892dd](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/commit/1c892dde50c66e83d1defa58cd449966e2dcec45)
