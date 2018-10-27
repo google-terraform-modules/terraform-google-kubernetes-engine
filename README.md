@@ -1,6 +1,6 @@
 # Google Kubernetes Engine (GKE) cluster
 
-Compatible provider `1.16.2 - 1.17.1`
+Compatible provider `1.19.1` (**stable**)
 
 ## Examples
 
@@ -9,17 +9,12 @@ Compatible provider `1.16.2 - 1.17.1`
 ```hcl
 module "gke-cluster" {
   source = "google-terraform-modules/kubernetes-engine/google"
-  version = "1.17.0"
+  version = "1.19.1"
 
   general = {
     name = "mycluster"
     env  = "prod"
     zone = "europe-west1-b"
-  }
-
-  master = {
-    username = "admin"
-    password = "${random_string.password.result}"
   }
 }
 ```
@@ -29,17 +24,12 @@ module "gke-cluster" {
 ```hcl
 module "gke-cluster" {
   source = "google-terraform-modules/kubernetes-engine/google"
-  version = "1.17.0"
+  version = "1.19.1"
 
   general = {
     name = "mycluster"
     env  = "prod"
     zone = "europe-west1-b"
-  }
-
-  master = {
-    username = "admin"
-    password = "${random_string.password.result}"
   }
 
   default_node_pool = {
@@ -66,18 +56,6 @@ module "gke-cluster" {
 }
 ```
 
-For the password, you can use the [random provider](https://www.terraform.io/docs/providers/random/index.html) :
-
-```hcl
-resource "random_string" "password" {
-  length  = 16
-  special = true
-  number  = true
-  lower   = true
-  upper   = true
-}
-```
-
 
 ## Inputs
 
@@ -86,13 +64,11 @@ resource "random_string" "password" {
 | default_node_pool | Default pool setting | map | `<map>` | no |
 | general | Global parameters | map | - | yes |
 | ip_allocation_policy | Configuration for cluster IP allocation. As of now, only pre-allocated subnetworks (custom type with secondary ranges) are supported | list | `<list>` | no |
-| ipv4_cidr_block | Specifies a private RFC1918 block for the master's VPC. The master range must not overlap with any subnet in your cluster's VPC. The master and your cluster use VPC peering. Must be specified in CIDR notation and must be /28 subnet. | string | `10.0.0.0/28` | no |
 | labels | The Kubernetes labels (key/value pairs) to be applied to each node | map | `<map>` | no |
 | master | Kubernetes master parameters to initialize | map | - | yes |
 | node_additional_zones | The list of additional Google Compute Engine locations in which the cluster's nodes should be located. If additional zones are configured, the number of nodes specified in initial_node_count is created in all specified zones | list | `<list>` | no |
 | node_pool | Node pool setting to create | list | `<list>` | no |
 | tags | The list of instance tags applied to all nodes. Tags are used to identify valid sources or targets for network firewalls | list | `<list>` | no |
-| taint | List of kubernetes taints to apply to each node | list | `<list>` | no |
 
 
 ## Outputs

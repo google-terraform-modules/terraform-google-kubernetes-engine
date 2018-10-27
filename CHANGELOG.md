@@ -1,3 +1,16 @@
+## [v1.19.1](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.17...1.19.1) (Octobrer 27, 2018)
+* Delete beta parameters :
+    * `workload_metadata_config`,
+    * `private_cluster`,
+    * `master_ipv4_cidr_block`,
+    * `pod_security_policy_config`,
+* Delete authentification block (password & certificate auto-disabled in Kubernetes 1.12).
+
+### Transfert beta repository
+* Fix recreate Cluster (workload_metadata_config state) (#20),
+* Beta parameters.
+
+
 ## [v1.17](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.15...1.17) (September 13, 2018)
 * Add new parameter **disk_type** - [d8069fb](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/commit/d8069fb16a3911d43401f75d545f61afeec9e98a)
 * Add new parameter **preemptible** - [d8069fb](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/commit/d8069fb16a3911d43401f75d545f61afeec9e98a)
