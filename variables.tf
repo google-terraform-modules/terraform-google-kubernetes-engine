@@ -18,9 +18,6 @@ variable "general" {
 }
 
 # Parameters authorized:
-# username (mandatory)
-# password (mandatory)
-# enable_client_certificate (default: false)
 # network (default: default)
 # subnetwork (default: default)
 # disable_horizontal_pod_autoscaling (default: false)
@@ -29,7 +26,6 @@ variable "general" {
 # disable_network_policy_config (default: true)
 # enable_kubernetes_alpha (default: false)
 # enable_legacy_abac (default: false)
-# private (default: false)
 # maintenance_window (default: 4:30)
 # version (default: Data resource)
 # monitoring_service (default: none)
@@ -104,25 +100,6 @@ variable "node_additional_zones" {
   type        = "list"
   default     = []
   description = "The list of additional Google Compute Engine locations in which the cluster's nodes should be located. If additional zones are configured, the number of nodes specified in initial_node_count is created in all specified zones"
-}
-
-# https://www.terraform.io/docs/providers/google/r/container_cluster.html#taint
-# WARNING BETA
-variable "taint" {
-  type        = "list"
-  default     = []
-  description = "List of kubernetes taints to apply to each node"
-}
-
-##########################
-###  PRIVATE CLUSTER   ###
-##########################
-
-# https://www.terraform.io/docs/providers/google/r/container_cluster.html#master_ipv4_cidr_block
-variable "ipv4_cidr_block" {
-  type        = "string"
-  default     = "10.0.0.0/28"
-  description = "Specifies a private RFC1918 block for the master's VPC. The master range must not overlap with any subnet in your cluster's VPC. The master and your cluster use VPC peering. Must be specified in CIDR notation and must be /28 subnet."
 }
 
 # https://www.terraform.io/docs/providers/google/r/container_cluster.html#ip_allocation_policy

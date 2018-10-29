@@ -35,10 +35,6 @@ resource "google_container_node_pool" "new_container_cluster_node_pool" {
     labels          = "${var.labels}"
     tags            = "${var.tags}"
     metadata        = "${var.metadata}"
-
-    workload_metadata_config {
-      node_metadata = "${lookup(var.node_pool[count.index], "node_metadata", "EXPOSE")}"
-    }
   }
 
   autoscaling {
@@ -87,28 +83,11 @@ resource "google_container_cluster" "new_container_cluster" {
   # cluster_ipv4_cidr - default 
   enable_kubernetes_alpha = "${lookup(var.master, "enable_kubernetes_alpha", false)}"
   enable_legacy_abac      = "${lookup(var.master, "enable_legacy_abac", false)}"
-  private_cluster         = "${lookup(var.master, "private", false)}"
   ip_allocation_policy    = "${var.ip_allocation_policy}"
-  master_ipv4_cidr_block  = "${var.ipv4_cidr_block}"
   
   maintenance_policy {
     daily_maintenance_window {
       start_time = "${lookup(var.master, "maintenance_window", "04:30")}"
-    }
-  }
-  
-  # WARNING BETA
-  pod_security_policy_config {
-    enabled = "${lookup(var.master, "enable_pod_security_policy_config", false)}"
-  }
-  
-  master_auth {
-    username = "${var.master["username"]}"
-    password = "${var.master["password"]}"
-
-    # See https://www.terraform.io/docs/providers/google/r/container_cluster.html#client_certificate_config
-    client_certificate_config {
-      issue_client_certificate = "${lookup(var.master, "enable_client_certificate", false)}"
     }
   }
   
@@ -138,12 +117,5 @@ resource "google_container_cluster" "new_container_cluster" {
     labels          = "${var.labels}"
     tags            = "${var.tags}"
     metadata        = "${var.metadata}"
-
-    workload_metadata_config {
-      node_metadata = "${lookup(var.default_node_pool, "node_metadata", "EXPOSE")}"
-    }
-
-    # WARNING BETA
-    taint = "${var.taint}"
   }
 }
