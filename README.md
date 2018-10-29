@@ -4,7 +4,8 @@ Compatible provider `1.19.1` (**stable**)
 
 ## Examples
 
-* 1 cluster, 1 default node pool (2 nodes (10GB/node) n1-standard-1), latest version of Kubernetes for each node
+* 1 cluster, 1 default node pool (2 nodes (10GB/node) n1-standard-1), latest version of Kubernetes for each node,
+* Default Google network (`default`).
 
 ```hcl
 module "gke-cluster" {
@@ -16,10 +17,13 @@ module "gke-cluster" {
     env  = "prod"
     zone = "europe-west1-b"
   }
+
+  master = {}
 }
 ```
 
-* 1 cluster, 1 default node pool (3 nodes & n1-standard-1), 2 extra node pool & latest version of Kubernetes for each node
+* 1 cluster, 1 default node pool (3 nodes & n1-standard-1), 2 extra node pool & latest version of Kubernetes for each node,
+* Custom Google network.
 
 ```hcl
 module "gke-cluster" {
@@ -30,6 +34,11 @@ module "gke-cluster" {
     name = "mycluster"
     env  = "prod"
     zone = "europe-west1-b"
+  }
+
+  master = {
+    network    = "${google_compute_network.vpc.self_link}"
+    subnetwork = "${google_compute_subnetwork.subnetwork-tools.self_link}"
   }
 
   default_node_pool = {

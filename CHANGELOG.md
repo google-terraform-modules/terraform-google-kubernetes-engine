@@ -1,4 +1,4 @@
-## [v1.19.1](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.17...1.19.1) (Octobrer 27, 2018)
+## [v1.19.1](https://github.com/google-terraform-modules/terraform-google-kubernetes-engine/compare/1.17...1.19.1) (Octobrer 29, 2018)
 * Delete beta parameters :
     * `workload_metadata_config`,
     * `private_cluster`,
