@@ -47,6 +47,10 @@ module "gke-cluster" {
   }
 
   # Optional in case we have a default pool
+  #
+  # Note that all node_count settings are applied per-zone
+  # (i.e. min_node_count 2 with 3 zones will create a node pool with 
+  #	min_node_count 6)
   node_pool = [
     {
       machine_type   = "g1-small"
