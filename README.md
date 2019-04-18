@@ -15,7 +15,7 @@ module "gke-cluster" {
   general = {
     name = "mycluster"
     env  = "prod"
-    zone = "europe-west1-b"
+    location = "europe-west1-b"
   }
 
   master = {}
@@ -33,7 +33,7 @@ module "gke-cluster" {
   general = {
     name = "mycluster"
     env  = "prod"
-    zone = "europe-west1-b"
+    location = "europe-west1-b"
   }
 
   master = {
