@@ -1,6 +1,6 @@
 # Google Kubernetes Engine (GKE) cluster
 
-Compatible provider `1.19.1` (**stable**)
+Compatible provider `2.5.0` (**stable**)
 
 ## Examples
 
@@ -10,7 +10,7 @@ Compatible provider `1.19.1` (**stable**)
 ```hcl
 module "gke-cluster" {
   source = "google-terraform-modules/kubernetes-engine/google"
-  version = "1.19.1"
+  version = "2.5.0"
 
   general = {
     name = "mycluster"
@@ -28,7 +28,7 @@ module "gke-cluster" {
 ```hcl
 module "gke-cluster" {
   source = "google-terraform-modules/kubernetes-engine/google"
-  version = "1.19.1"
+  version = "2.5.0"
 
   general = {
     name = "mycluster"
