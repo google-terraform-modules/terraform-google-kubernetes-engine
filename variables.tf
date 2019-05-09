@@ -10,7 +10,7 @@
 
 # Parameters authorized:
 # name (mandatory)
-# zone (mandatory)
+# location (mandatory)
 # env (mandatory)
 variable "general" {
   type        = "map"
